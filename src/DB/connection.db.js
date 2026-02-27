@@ -12,7 +12,7 @@ export const authenticateDB = async () =>{
 
 try {
   await sequelize.authenticate();
-  await sequelize.sync({ alter:true,force: false,match:/_test$/ }); //alter 3lshan lw 8yrt 7aga fel code //force 3lshan lw hw23 el table w abneeh mn awl w gdeed //match 3lshan a match bs ll db elly a5r esmha test using regex 
+  await sequelize.sync({ alter:true,force: true,match:/_test$/ }); //alter 3lshan lw 8yrt 7aga fel code //force 3lshan lw hw23 el table w abneeh mn awl w gdeed //match 3lshan a match bs ll db elly a5r esmha test using regex 
   console.log('All models were synchronized successfully.');
   console.log('Connection has been established successfully.');
 } catch (error) {

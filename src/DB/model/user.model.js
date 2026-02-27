@@ -15,18 +15,18 @@ export const userModel = sequelize.define(
      allowNull:false,
      primaryKey:true,
      autoIncrement:true,
-     field:"u_id"
+     field:"U_id"
     },
     name:{
     type:DataTypes.STRING(200),
     allowNull:false,
-    field:"u_name"
+    field:"U_name"
     },
     email:{
     type:DataTypes.STRING(200),
     allowNull:false,
     unique:true,
-    field:"u_email" ,
+    field:"U_email" ,
     validate:{
           isEmail:{msg:"Email must be valid and formatted as lol@example.dummy "}
     }
@@ -34,7 +34,7 @@ export const userModel = sequelize.define(
     password:{
     type:DataTypes.STRING(200),
     allowNull:false,
-    field:"u_password", 
+    field:"U_password", 
     validate:{
         checkPasswordLength(pass){
           if(pass.length<6)
@@ -45,16 +45,16 @@ export const userModel = sequelize.define(
     role:{
         type:DataTypes.ENUM("user","admin"),
         allowNull:false,
-        field:"u_role" 
+        field:"U_role" 
     },
     u_CreatedAt: {
         type: DataTypes.DATEONLY,
-        field: "u_CreatedAt",
+        field: "U_CreatedAt",
         defaultValue: DataTypes.NOW
     },
     u_UpdatedAt: {
         type: DataTypes.DATEONLY,
-        field: "u_UpdatedAt"
+        field: "U_UpdatedAt"
     }
 },{
         hooks: {
@@ -64,8 +64,8 @@ export const userModel = sequelize.define(
                 }
             },
         },
-    createdAt: "u_CreatedAt", 
-    updatedAt: "u_UpdatedAt",
+    createdAt: "U_CreatedAt", 
+    updatedAt: "U_UpdatedAt",
     timestamps: true
     }
 )
