@@ -1,1 +1,1 @@
-export * from './user.model.js'
+export {userModel} from './user.model.js'

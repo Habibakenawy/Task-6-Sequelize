@@ -7,7 +7,7 @@ export const  sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   dialect: "mysql"
 });
 
-
+import "./model/index.js";
 export const authenticateDB = async () =>{
 
 try {
