@@ -1,4 +1,5 @@
 import {userModel} from '../../DB/model/index.js'
+
 export const signup   = async (inputs)=>{
   const {name,email,password,role} = inputs;
   const checkIfEmailExists = await userModel.findOne({where:{email}})
@@ -13,5 +14,15 @@ export const signup   = async (inputs)=>{
   });
 
   await result.save();
+  return result;
+}
+
+export const updateUser   = async (inputs)=>{
+  const {name,email,password,role,id} = inputs;
+  const result = userModel.upsert(
+   { id, name, email, password,role }, 
+        { validate: false }
+  );
+
   return result;
 }
