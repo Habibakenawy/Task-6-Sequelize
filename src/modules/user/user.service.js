@@ -26,3 +26,19 @@ export const updateUser   = async (inputs)=>{
 
   return result;
 }
+
+export const findUserByEmail   = async (email)=>{
+  const found = await userModel.findOne({where:{email}})
+ if(!found)
+throw new Error('no user found')
+  return found;
+}
+
+export const getUserById   = async (id)=>{
+  const found = await userModel.findByPk(id,{
+        attributes: { exclude: ['role'] } 
+    })
+ if(!found)
+throw new Error('no user found')
+  return found;
+}
