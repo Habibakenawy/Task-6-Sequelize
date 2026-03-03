@@ -1,6 +1,7 @@
 import { postModel } from "../../DB/model/post.model.js";
 import { userModel } from "../../DB/model/user.model.js";
 import { commentModel } from "../../DB/model/comment.model.js";
+import { sequelize } from "../../DB/connection.db.js";
 
 export const createPost = async (body) => {
   const { title, content, userId } = body;
@@ -22,19 +23,37 @@ export const deletePost = async (postID, body) => {
   return deletePost;
 };
 
-
 export const getAllPosts = async () => {
-    return await postModel.findAll({
-        attributes: ['id', 'title'], 
-        include: [
-            {
-                model: userModel, attributes: ['id', 'name'] 
-            },
-            {
-                model: commentModel ,
-                as:'comments',
-                attributes: ['id', 'content'] 
-            }
-        ]
-    });
+  return await postModel.findAll({
+    attributes: ["id", "title"],
+    include: [
+      {
+        model: userModel,
+        attributes: ["id", "name"],
+      },
+      {
+        model: commentModel,
+        as: "comments",
+        attributes: ["id", "content"],
+      },
+    ],
+  });
+};
+
+export const getCommentCount = async () => {
+  return await postModel.findAll({
+    attributes: [
+      "id",
+      "title",
+      [sequelize.fn("COUNT", sequelize.col("comments.C_id")), "commentCount"],
+    ],
+    include: [
+      {
+        model: commentModel,
+        as: "comments",
+        attributes: [],
+      },
+    ],
+    group: ["postModel.P_id"],
+  });
 };

@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { createPost ,deletePost,getAllPosts} from "./post.service.js";
+import { createPost ,deletePost,getAllPosts,getCommentCount} from "./post.service.js";
 
 const router = Router();
 
@@ -17,6 +17,11 @@ router.delete('/:postId',async (req,res,next)=>{
 router.get('/details',async (req,res,next)=>{
 const result = await getAllPosts();
  return res.status(200).json({message:"All posts retrieved successfully" , result})
+})
+
+router.get('/comment-count',async (req,res,next)=>{
+const result = await getCommentCount();
+ return res.status(200).json({message:"Comment count retrieved successfully" , result})
 })
 
 
