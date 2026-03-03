@@ -32,3 +32,9 @@ name:"C_userId"
 onDelete:"CASCADE",
 onUpdate:"CASCADE"
 })
+
+postModel.hasMany(commentModel, { 
+    foreignKey: 'C_postId', 
+    onDelete: 'CASCADE' ,
+    as: 'comments'
+});

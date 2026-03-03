@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { createPost ,deletePost} from "./post.service.js";
+import { createPost ,deletePost,getAllPosts} from "./post.service.js";
 
 const router = Router();
 
@@ -14,6 +14,10 @@ router.delete('/:postId',async (req,res,next)=>{
     return res.status(200).json({message:"Post Deleted successfully" , result})
 }) 
 
+router.get('/details',async (req,res,next)=>{
+const result = await getAllPosts();
+ return res.status(200).json({message:"All posts retrieved successfully" , result})
+})
 
 
 
