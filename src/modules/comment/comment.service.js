@@ -1,5 +1,7 @@
 import { commentModel } from "../../DB/model/comment.model.js";
 import { Op } from "sequelize";
+import { userModel } from "../../DB/model/user.model.js";
+import { postModel } from "../../DB/model/index.js";
 
 
 export const createComments = async (body) => { //should check the fact that the comments can be created for a post that does not exist
@@ -80,6 +82,21 @@ export const getNewestComments = async (postId) => {
         order: [['C_createdAt', 'DESC']]
     });
     return foundComments
+};
+
+
+
+export const getSpecificComment = async (commentId) => {
+   const foundComment = await commentModel.findByPk(commentId, 
+    {include: [
+         {
+           model: userModel
+         },
+         {
+           model: postModel
+         }]});
+         if(!foundComment) throw new Error('No comments found')
+    return foundComment
 };
 
 
