@@ -1,7 +1,7 @@
 import { commentModel } from "../../DB/model/comment.model.js";
 
 
-export const createComments = async (body) => {
+export const createComments = async (body) => { //should check the fact that the comments can be created for a post that does not exist
 
    const mappedBody = body.map(comment => ({
       content: comment.content,
@@ -15,3 +15,19 @@ export const createComments = async (body) => {
 
    return comments;
 };
+
+
+export const updateComment = async (commentId,inputs) =>{
+ const { userId ,content} = inputs;
+
+
+  const comment = await commentModel.findByPk(commentId);
+
+  if (!comment) throw new Error("Comment not found");
+
+  if (Number(userId) !== Number(comment.C_userId)) {
+    throw new Error("You are not authorized to update this comment");
+  }
+  const updatedComment = await comment.update({ content: content });
+  return updatedComment;
+}

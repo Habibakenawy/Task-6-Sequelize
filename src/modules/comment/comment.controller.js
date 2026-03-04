@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createComments } from "./comment.service.js";
+import { createComments,updateComment } from "./comment.service.js";
 
 const router = Router();
 
@@ -9,4 +9,12 @@ router.post('/',async (req,res,next)=>{
     return res.status(201).json({message:"Comments created successfully" , result})
 })
 
+
+router.patch('/:commentId',async (req,res,next)=>{
+    const result  = await updateComment(req.params.commentId,req.body)
+    return res.status(201).json({message:"Comment updated" , result})
+})
+
 export default router;
+
+
