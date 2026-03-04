@@ -1,4 +1,5 @@
 import { commentModel } from "../../DB/model/comment.model.js";
+import { Op } from "sequelize";
 
 
 export const createComments = async (body) => { //should check the fact that the comments can be created for a post that does not exist
@@ -52,4 +53,18 @@ export const findOrCreateComment = async (body) => {
    });
 
    return { comment, created };
+};
+
+
+
+
+export const searchComment = async (body) => {
+   const { word } = body;
+   const foundComments = await commentModel.findAndCountAll({
+        where: {
+            content: { [Op.like]: `%${word}%` }
+        }
+    });
+    if(foundComments.count==0) throw new Error('No comments found')
+    return foundComments
 };

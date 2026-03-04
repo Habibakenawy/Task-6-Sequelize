@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createComments,updateComment,findOrCreateComment } from "./comment.service.js";
+import { createComments,updateComment,findOrCreateComment,searchComment } from "./comment.service.js";
 
 const router = Router();
 
@@ -20,6 +20,13 @@ router.post('/find-or-create',async (req,res,next)=>{
 const result = await findOrCreateComment(req.body);
  return res.status(200).json({message:"Comment found or created" , result})
 })
+
+
+router.get('/search',async (req,res,next)=>{
+const result = await searchComment(req.body);
+ return res.status(200).json({message:"Comments found" , result})
+})
+
 
 
 export default router;
