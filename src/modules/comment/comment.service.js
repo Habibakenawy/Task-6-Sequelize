@@ -68,3 +68,18 @@ export const searchComment = async (body) => {
     if(foundComments.count==0) throw new Error('No comments found')
     return foundComments
 };
+
+
+
+export const getNewestComments = async (postId) => {
+   const foundComments = await commentModel.findAll({
+        where: {
+          C_postId: postId
+        },
+        limit:3,
+        order: [['C_createdAt', 'DESC']]
+    });
+    return foundComments
+};
+
+

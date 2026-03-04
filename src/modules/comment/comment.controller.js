@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createComments,updateComment,findOrCreateComment,searchComment } from "./comment.service.js";
+import { createComments,updateComment,findOrCreateComment,searchComment,getNewestComments } from "./comment.service.js";
 
 const router = Router();
 
@@ -25,6 +25,11 @@ const result = await findOrCreateComment(req.body);
 router.get('/search',async (req,res,next)=>{
 const result = await searchComment(req.body);
  return res.status(200).json({message:"Comments found" , result})
+})
+
+router.get('/newest/:postId',async (req,res,next)=>{
+const result = await getNewestComments(req.params.postId);
+ return res.status(200).json({message:"3 most recent comments found" , result})
 })
 
 
