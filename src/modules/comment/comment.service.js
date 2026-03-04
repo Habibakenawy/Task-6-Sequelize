@@ -31,3 +31,25 @@ export const updateComment = async (commentId,inputs) =>{
   const updatedComment = await comment.update({ content: content });
   return updatedComment;
 }
+
+
+
+
+
+export const findOrCreateComment = async (body) => {
+   const { postId, userId, content } = body;
+
+   const [comment, created] = await commentModel.findOrCreate({
+      where: {
+         C_userId: userId,
+         C_postId: postId
+      },
+      defaults: {
+         content,
+         C_userId: userId,
+         C_postId: postId
+      }
+   });
+
+   return { comment, created };
+};
